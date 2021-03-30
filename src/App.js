@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Login from "./components/Login";
+import SessionsAdapter from "./adapters/SessionsAdapter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: {},
+    };
+  }
+
+  getUser = (user) => {
+    return SessionsAdapter.getUser(user).then((userData) => {
+      this.setState({
+        currentUser: userData,
+      });
+      localStorage.setItem("token", userData.jwt);
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <Login getUser={this.getUser} />
+      </div>
+    );
+  }
 }
 
 export default App;
