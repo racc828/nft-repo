@@ -18,7 +18,6 @@ export default class Login extends React.Component {
   };
 
   handleSubmit = (e) => {
-    debugger; // eslint-disable-line
     e.preventDefault();
     let user = this.state;
     this.props.getUser(user);

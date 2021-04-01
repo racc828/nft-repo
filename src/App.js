@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
 import SessionsAdapter from "./adapters/SessionsAdapter";
+import { Route } from "react-router-dom";
+import Home from "./components/Home";
 
 class App extends Component {
   constructor() {
@@ -8,6 +10,14 @@ class App extends Component {
     this.state = {
       currentUser: {},
     };
+  }
+
+  componentDidMount() {
+    SessionsAdapter.currentUser().then((data) => {
+      this.setState({
+        currentUser: data,
+      });
+    });
   }
 
   getUser = (user) => {
@@ -19,10 +29,24 @@ class App extends Component {
     });
   };
 
+  renderHome = () => {
+    const { currentUser } = this.state;
+
+    return <Home currentUser={currentUser} />;
+  };
+
+  renderLogin = () => {
+    return <Login getUser={this.getUser} />;
+  };
+
   render() {
     return (
       <div className="App">
-        <Login getUser={this.getUser} />
+        {this.state.currentUser ? (
+          <Route exact path="/" render={this.renderHome} />
+        ) : (
+          <Route exact path="/" render={this.renderLogin} />
+        )}
       </div>
     );
   }

@@ -28,6 +28,11 @@ export const routes = {
         method: methods.POST,
         headers: headers,
       }),
+      currentUser: () => ({
+        url: `${rootUrl}/sessions/current_user`,
+        method: methods.GET,
+        headers: headers,
+      }),
     },
   },
 };

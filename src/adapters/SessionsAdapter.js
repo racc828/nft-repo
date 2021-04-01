@@ -12,12 +12,11 @@ export default class SessionsAdapter {
     }).then((resp) => resp.json());
   }
 
-  //   static currentUser() {
-  //     return fetch(`${path}/current_user`, {
-  //       method: "GET",
-  //       headers: headers(),
-  //     }).then((res) => {
-  //       return res.json();
-  //     });
-  //   }
+  static currentUser() {
+    const endpoint = currentRoute.endpoints.currentUser();
+    return fetch(endpoint.url, {
+      method: endpoint.method,
+      headers: endpoint.headers,
+    }).then((resp) => resp.json());
+  }
 }
