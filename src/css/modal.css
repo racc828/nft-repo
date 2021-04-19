@@ -1,13 +1,6 @@
-.modal-container {
-  height: 300px;
-  flex-grow: 1;
-  min-width: 300px;
-  display: none;
-}
-
 .modal {
   display: flex;
-  padding: 20%;
+  padding: 5%;
   align-items: center;
   justify-content: center;
 }
@@ -15,5 +8,5 @@
 .modal-body {
   width: 300px;
   background: #fff;
-  padding: 20%;
+  padding: 10%;
 }

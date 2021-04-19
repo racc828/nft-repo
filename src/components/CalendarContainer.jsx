@@ -2,6 +2,10 @@ import React from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import CollectionsAdapter from "../adapters/CollectionsAdapter";
+import CollectionForm from "./CollectionForm";
+import CollectionData from "./CollectionData";
+import { Modal } from "@material-ui/core";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -10,44 +14,100 @@ const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 export default class CalendarContainer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      events: [
-        {
-          start: moment().toDate(),
-          end: moment().add(1, "days").toDate(),
-          title: "Some title",
-        },
-      ],
+      events: [],
+      eventTime: {},
+      modalOpen: false,
+      collectionData: {},
     };
   }
 
-  onEventResize = (data) => {
-    const { start, end } = data;
+  componentDidMount() {
+    CollectionsAdapter.getCollections().then((data) => {
+      this.setState({
+        events: data,
+      });
+    });
+  }
 
-    this.setState((state) => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: [...state.events] };
+  openCollectionForm = (e) => {
+    const eventTime = { start: e.start, end: e.end };
+    this.setState({
+      modalOpen: true,
+      isCollectionForm: true,
+      eventTime,
     });
   };
 
-  onEventDrop = (data) => {
-    console.log(data);
+  openCollectionData = (e) => {
+    this.setState({
+      modalOpen: true,
+      collectionData: e,
+      isCollectionForm: false,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalOpen: false,
+      isCollectionForm: false,
+    });
+  };
+
+  createCollection = (collection) => {
+    const { events } = this.state;
+    CollectionsAdapter.createCollection(collection).then((data) => {
+      this.setState({
+        events: [...events, data],
+        modalOpen: false,
+        isCollectionForm: false,
+      });
+    });
   };
 
   render() {
+    const {
+      modalOpen,
+      events,
+      isCollectionForm,
+      eventTime,
+      collectionData,
+    } = this.state;
+
+    const body = isCollectionForm ? (
+      <div className="modal-body">
+        <CollectionForm
+          eventTime={eventTime}
+          createCollection={this.createCollection}
+        />
+      </div>
+    ) : (
+      <div className="modal-body">
+        <CollectionData collectionData={collectionData} />
+      </div>
+    );
+
     return (
       <div>
+        <Modal
+          open={modalOpen}
+          onClose={this.closeModal}
+          className="modal"
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          {body}
+        </Modal>
         <DnDCalendar
+          selectable
+          onSelectSlot={this.openCollectionForm}
+          onSelectEvent={this.openCollectionData}
           defaultDate={moment().toDate()}
           defaultView="month"
-          events={this.state.events}
+          events={events}
           localizer={localizer}
-          onEventDrop={this.onEventDrop}
-          onEventResize={this.onEventResize}
-          resizable
           style={{ height: "100vh" }}
         />
       </div>

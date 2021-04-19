@@ -18,6 +18,7 @@ const headers = {
 export const apis = {
   Users: "users",
   Sessions: "sessions",
+  Collections: "collections",
 };
 
 export const routes = {
@@ -31,6 +32,20 @@ export const routes = {
       currentUser: () => ({
         url: `${rootUrl}/sessions/current_user`,
         method: methods.GET,
+        headers: headers,
+      }),
+    },
+  },
+  [apis.Collections]: {
+    endpoints: {
+      getCollections: () => ({
+        url: `${rootUrl}/collections`,
+        method: methods.GET,
+        headers: headers,
+      }),
+      createCollection: () => ({
+        url: `${rootUrl}/collections`,
+        method: methods.POST,
         headers: headers,
       }),
     },
