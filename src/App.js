@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import SessionsAdapter from "./adapters/SessionsAdapter";
 import { Route } from "react-router-dom";
 import Home from "./components/Home";
+import Nav from "./components/Nav";
 
 class App extends Component {
   constructor() {
@@ -40,9 +41,12 @@ class App extends Component {
   };
 
   render() {
+    const { currentUser } = this.state;
+
     return (
       <div className="App">
-        {this.state.currentUser ? (
+        <Nav {...currentUser} />
+        {!this.state.currentUser.error ? (
           <Route exact path="/" render={this.renderHome} />
         ) : (
           <Route exact path="/" render={this.renderLogin} />
