@@ -19,6 +19,7 @@ export const apis = {
   Users: "users",
   Sessions: "sessions",
   Collections: "collections",
+  Artists: "artists",
 };
 
 export const routes = {
@@ -45,6 +46,20 @@ export const routes = {
       }),
       createCollection: () => ({
         url: `${rootUrl}/collections`,
+        method: methods.POST,
+        headers: headers,
+      }),
+    },
+  },
+  [apis.Artists]: {
+    endpoints: {
+      getArtists: () => ({
+        url: `${rootUrl}/artists`,
+        method: methods.GET,
+        headers: headers,
+      }),
+      createArtist: () => ({
+        url: `${rootUrl}/artists`,
         method: methods.POST,
         headers: headers,
       }),

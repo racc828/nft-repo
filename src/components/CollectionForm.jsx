@@ -1,4 +1,7 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Button from "@material-ui/core/Button";
 
 export default class CollectionForm extends React.Component {
   constructor() {
@@ -6,6 +9,9 @@ export default class CollectionForm extends React.Component {
     this.state = {
       artist_id: null,
       name: "",
+      link: "",
+      autoCompleteValue: "",
+      autoCompleteInputValue: "",
     };
   }
 
@@ -18,33 +24,76 @@ export default class CollectionForm extends React.Component {
   };
 
   handleSubmit = (e) => {
-    const { artist_id, name } = this.state;
-    const { start, end } = this.props.eventTime;
     e.preventDefault();
-    let collection = { artist_id, name, start, end };
-    this.props.createCollection(collection);
+    const { autoCompleteValue, name, link } = this.state;
+    const { start, end } = this.props.eventTime;
+    let collection = {
+      artist_id: autoCompleteValue.id,
+      name,
+      start,
+      end,
+      link,
+    };
+    if (autoCompleteValue === "") {
+      alert("choose a value from the dropdown");
+    } else {
+      this.props.createCollection(collection);
+    }
+  };
+
+  renderInput = (params) => {
+    return <TextField {...params} variant="outlined" />;
+  };
+
+  setInputValue = (event, newInputValue) => {
+    this.setState({
+      autoCompleteInputValue: newInputValue,
+    });
+  };
+
+  setValue = (event, newValue) => {
+    this.setState({
+      autoCompleteValue: newValue,
+    });
   };
 
   render() {
+    const { autoCompleteValue, autoCompleteInputValue } = this.state;
+    const { artists } = this.props;
+
+    const artistsName = artists.map((artist) => {
+      return { title: artist.name, id: artist.id };
+    });
     return (
       <div>
         <form id="add-collection" onSubmit={this.handleSubmit}>
           <h1>Add Collection</h1>
-          <input
+          <TextField
             onChange={this.handleChange}
             name="name"
-            type="text"
-            placeholder="name"
+            label="Name"
             required
           />
-          <input
+          <TextField
             onChange={this.handleChange}
-            name="artist_id"
-            type="number"
-            placeholder="Artist Id"
+            name="link"
+            label="Link"
             required
           />
-          <button type="submit">Add</button>
+          <Autocomplete
+            id="combo-box-demo"
+            value={autoCompleteValue}
+            options={artistsName}
+            onChange={this.setValue}
+            getOptionLabel={(option) => option.title}
+            style={{ width: 300 }}
+            inputValue={autoCompleteInputValue}
+            onInputChange={this.setInputValue}
+            renderInput={this.renderInput}
+          />
+          <Button type="submit" variant="contained" color="secondary">
+            Add
+          </Button>
         </form>
       </div>
     );

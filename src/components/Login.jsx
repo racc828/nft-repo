@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default class Login extends React.Component {
   constructor() {
@@ -28,21 +30,24 @@ export default class Login extends React.Component {
       <div>
         <form id="user-login" onSubmit={this.handleSubmit}>
           <h1>Login</h1>
-          <input
+
+          <TextField
             onChange={this.handleChange}
             name="username"
-            type="text"
-            placeholder="Username"
+            label="username"
             required
           />
-          <input
+
+          <TextField
             onChange={this.handleChange}
-            name="password"
+            label="password"
             type="password"
-            placeholder="Password"
+            name="password"
             required
           />
-          <button type="submit">Login</button>
+          <Button type="submit" variant="contained" color="secondary">
+            Login
+          </Button>
         </form>
       </div>
     );

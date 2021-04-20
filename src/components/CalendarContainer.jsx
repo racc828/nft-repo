@@ -77,9 +77,12 @@ export default class CalendarContainer extends React.Component {
       collectionData,
     } = this.state;
 
+    const { artists } = this.props;
+
     const body = isCollectionForm ? (
       <div className="modal-body">
         <CollectionForm
+          artists={artists}
           eventTime={eventTime}
           createCollection={this.createCollection}
         />
@@ -89,6 +92,9 @@ export default class CalendarContainer extends React.Component {
         <CollectionData {...collectionData} />
       </div>
     );
+
+    // prettier-ignore
+    console.log(`%cartists`, 'background: #FF1493; color: #fff; padding: 3px;', this.props.artists); // eslint-disable-line
 
     return (
       <div>
