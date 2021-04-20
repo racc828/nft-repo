@@ -35,12 +35,14 @@ export default class CollectionForm extends React.Component {
             name="name"
             type="text"
             placeholder="name"
+            required
           />
           <input
             onChange={this.handleChange}
             name="artist_id"
             type="number"
             placeholder="Artist Id"
+            required
           />
           <button type="submit">Add</button>
         </form>

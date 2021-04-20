@@ -42,6 +42,7 @@ export default class CalendarContainer extends React.Component {
   };
 
   openCollectionData = (e) => {
+    debugger; // eslint-disable-line
     this.setState({
       modalOpen: true,
       collectionData: e,
@@ -85,19 +86,13 @@ export default class CalendarContainer extends React.Component {
       </div>
     ) : (
       <div className="modal-body">
-        <CollectionData collectionData={collectionData} />
+        <CollectionData {...collectionData} />
       </div>
     );
 
     return (
       <div>
-        <Modal
-          open={modalOpen}
-          onClose={this.closeModal}
-          className="modal"
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
+        <Modal open={modalOpen} onClose={this.closeModal} className="modal">
           {body}
         </Modal>
         <DnDCalendar

@@ -33,12 +33,14 @@ export default class Login extends React.Component {
             name="username"
             type="text"
             placeholder="Username"
+            required
           />
           <input
             onChange={this.handleChange}
             name="password"
             type="password"
             placeholder="Password"
+            required
           />
           <button type="submit">Login</button>
         </form>
