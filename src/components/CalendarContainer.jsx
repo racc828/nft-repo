@@ -25,8 +25,13 @@ export default class CalendarContainer extends React.Component {
 
   componentDidMount() {
     CollectionsAdapter.getCollections().then((data) => {
+      const newData = data.map((collection) => {
+        let newcoll = collection;
+        newcoll.title = collection.name;
+        return newcoll;
+      });
       this.setState({
-        events: data,
+        events: newData,
       });
     });
   }
@@ -58,6 +63,7 @@ export default class CalendarContainer extends React.Component {
   createCollection = (collection) => {
     const { events } = this.state;
     CollectionsAdapter.createCollection(collection).then((data) => {
+      data.title = data.name;
       this.setState({
         events: [...events, data],
         modalOpen: false,
@@ -67,9 +73,12 @@ export default class CalendarContainer extends React.Component {
   };
 
   eventStyleGetter = (event) => {
-    const isDrawing = event.droptypes.some((droptype) => {
-      return droptype.dtype === "drawing";
-    });
+    const isDrawing =
+      event &&
+      event.droptypes &&
+      event.droptypes.some((droptype) => {
+        return droptype.dtype === "drawing";
+      });
 
     var style = {
       backgroundColor: isDrawing ? "#FFC0CB" : "#2F329F",

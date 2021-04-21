@@ -17,7 +17,7 @@ export default class CollectionsAdapter {
       method: endpoint.method,
       headers: endpoint.headers,
       body: JSON.stringify({
-        artist_id: parseInt(collection.artist_id),
+        artist_ids: collection.artist_ids,
         name: collection.name,
         start: collection.start,
         end: collection.end,

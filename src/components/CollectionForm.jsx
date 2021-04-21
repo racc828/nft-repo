@@ -7,8 +7,8 @@ export default class CollectionForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      artist_id: null,
       name: "",
+      selectedArtists: [],
       autoCompleteValue: "",
       autoCompleteInputValue: "",
     };
@@ -24,15 +24,16 @@ export default class CollectionForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { autoCompleteValue, name } = this.state;
+    const { selectedArtists, name } = this.state;
     const { start, end } = this.props.eventTime;
+    const artist_ids = selectedArtists.map((artist) => artist.id);
     let collection = {
-      artist_id: autoCompleteValue.id,
+      artist_ids,
       name,
       start,
       end,
     };
-    if (autoCompleteValue === "") {
+    if (selectedArtists.length === 0) {
       alert("choose a value from the dropdown");
     } else {
       this.props.createCollection(collection);
@@ -44,19 +45,33 @@ export default class CollectionForm extends React.Component {
   };
 
   setInputValue = (event, newInputValue) => {
+    debugger; // eslint-disable-line
     this.setState({
       autoCompleteInputValue: newInputValue,
     });
   };
 
   setValue = (event, newValue) => {
-    this.setState({
-      autoCompleteValue: newValue,
+    const { selectedArtists } = this.state;
+    const selectError = selectedArtists.some((artist) => {
+      return artist.id === newValue.id;
     });
+    if (selectError) {
+      alert("you already chose this artist");
+    } else {
+      this.setState({
+        selectedArtists: [...selectedArtists, newValue],
+        autoCompleteInputValue: "",
+      });
+    }
   };
 
   render() {
-    const { autoCompleteValue, autoCompleteInputValue } = this.state;
+    const {
+      selectedArtists,
+      autoCompleteValue,
+      autoCompleteInputValue,
+    } = this.state;
     const { artists } = this.props;
 
     const artistsName = artists.map((artist) => {
@@ -86,6 +101,9 @@ export default class CollectionForm extends React.Component {
           <Button type="submit" variant="contained" color="secondary">
             Add
           </Button>
+          {selectedArtists.map((artist) => {
+            return <div>{artist.title}</div>;
+          })}
         </form>
       </div>
     );

@@ -1,10 +1,9 @@
 import React from "react";
 import "../css/modal.css";
+import ArtistData from "./ArtistData";
 import DroptypeForm from "./DroptypeForm";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import Fab from "@material-ui/core/Fab";
-import Tooltip from "@material-ui/core/Tooltip";
+import PlusIcon from "@material-ui/icons/AddCircle";
+import IconButton from "@material-ui/core/IconButton";
 
 export default class CollectionData extends React.Component {
   constructor() {
@@ -14,58 +13,49 @@ export default class CollectionData extends React.Component {
     };
   }
 
-  closeForm = () => {
-    this.setState({ showForm: false });
+  toggleForm = () => {
+    this.setState({
+      showForm: !this.state.showForm,
+    });
   };
 
   render() {
     const { showForm } = this.state;
-    const { id, name, artistData, droptypes } = this.props;
+    const { id, name, artists, droptypes } = this.props;
+
+    // prettier-ignore
+    console.log(`%cdroptypes`, 'background: #FF1493; color: #fff; padding: 3px;', droptypes); // eslint-disable-line
 
     return (
       <div className="collection-data">
-        <h2>
-          {artistData.name}: {artistData.occupation}
-        </h2>
-        {artistData.insta_link && (
-          <Tooltip
-            title={artistData.insta_followers}
-            aria-label="insta_followers"
-          >
-            <a href={artistData.insta_link} target="_blank">
-              <InstagramIcon className="social-icons" />
-            </a>
-          </Tooltip>
-        )}
-
-        {artistData.twitter_link && (
-          <Tooltip
-            title={artistData.twitter_followers}
-            aria-label="twitter_followers"
-          >
-            <a href={artistData.twitter_link} target="_blank">
-              <TwitterIcon className="social-icons" />
-            </a>
-          </Tooltip>
-        )}
-
+        {artists.map((artist) => {
+          return <ArtistData {...artist} />;
+        })}
         <p>
           <strong>Collection:</strong> {name}
         </p>
+        <h3>
+          Droptypes
+          <IconButton
+            color="secondary"
+            aria-label="add droptype"
+            onClick={this.toggleForm}
+          >
+            <PlusIcon />
+          </IconButton>
+        </h3>
 
-        <h3>Droptypes</h3>
         {droptypes &&
           droptypes.map((droptype) => {
             return (
               <div>
-                <a href={droptype.link} target="_blank">
+                <a href={droptype.link} target="_blank" rel="noreferrer">
                   {droptype.dtype}
                 </a>
               </div>
             );
           })}
-
-        {showForm && <DroptypeForm closeForm={this.closeForm} id={id} />}
+        {showForm && <DroptypeForm closeForm={this.toggleForm} id={id} />}
       </div>
     );
   }
