@@ -6,7 +6,6 @@ import CollectionsAdapter from "../adapters/CollectionsAdapter";
 import CollectionForm from "./CollectionForm";
 import CollectionData from "./CollectionData";
 import { Modal } from "@material-ui/core";
-
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
@@ -42,7 +41,6 @@ export default class CalendarContainer extends React.Component {
   };
 
   openCollectionData = (e) => {
-    debugger; // eslint-disable-line
     this.setState({
       modalOpen: true,
       collectionData: e,
@@ -66,6 +64,20 @@ export default class CalendarContainer extends React.Component {
         isCollectionForm: false,
       });
     });
+  };
+
+  eventStyleGetter = (event) => {
+    const isDrawing = event.droptypes.some((droptype) => {
+      return droptype.dtype === "drawing";
+    });
+
+    var style = {
+      backgroundColor: isDrawing ? "#FFC0CB" : "#2F329F",
+      color: isDrawing ? "black" : "white",
+    };
+    return {
+      style: style,
+    };
   };
 
   render() {
@@ -93,9 +105,6 @@ export default class CalendarContainer extends React.Component {
       </div>
     );
 
-    // prettier-ignore
-    console.log(`%cartists`, 'background: #FF1493; color: #fff; padding: 3px;', this.props.artists); // eslint-disable-line
-
     return (
       <div>
         <Modal open={modalOpen} onClose={this.closeModal} className="modal">
@@ -110,6 +119,7 @@ export default class CalendarContainer extends React.Component {
           events={events}
           localizer={localizer}
           style={{ height: "100vh" }}
+          eventPropGetter={this.eventStyleGetter}
         />
       </div>
     );

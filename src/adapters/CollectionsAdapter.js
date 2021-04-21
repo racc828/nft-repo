@@ -21,7 +21,6 @@ export default class CollectionsAdapter {
         name: collection.name,
         start: collection.start,
         end: collection.end,
-        link: collection.link,
       }),
     }).then((resp) => resp.json());
   }

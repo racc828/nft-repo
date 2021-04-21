@@ -20,6 +20,7 @@ export const apis = {
   Sessions: "sessions",
   Collections: "collections",
   Artists: "artists",
+  Droptypes: "droptypes",
 };
 
 export const routes = {
@@ -60,6 +61,15 @@ export const routes = {
       }),
       createArtist: () => ({
         url: `${rootUrl}/artists`,
+        method: methods.POST,
+        headers: headers,
+      }),
+    },
+  },
+  [apis.Droptypes]: {
+    endpoints: {
+      createDroptype: () => ({
+        url: `${rootUrl}/droptypes`,
         method: methods.POST,
         headers: headers,
       }),

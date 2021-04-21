@@ -29,7 +29,6 @@ export default class ArtistForm extends React.Component {
     let { currentUser, createArtist } = this.props;
     let artist = this.state;
     artist.user_id = currentUser.id;
-    debugger; // eslint-disable-line
     createArtist(artist);
     this.setState({
       name: "",

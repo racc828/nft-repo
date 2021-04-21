@@ -4,6 +4,7 @@ import SessionsAdapter from "./adapters/SessionsAdapter";
 import { Route } from "react-router-dom";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
+import "../src/App.css";
 
 class App extends Component {
   constructor() {

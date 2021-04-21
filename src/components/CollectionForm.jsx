@@ -9,7 +9,6 @@ export default class CollectionForm extends React.Component {
     this.state = {
       artist_id: null,
       name: "",
-      link: "",
       autoCompleteValue: "",
       autoCompleteInputValue: "",
     };
@@ -25,14 +24,13 @@ export default class CollectionForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { autoCompleteValue, name, link } = this.state;
+    const { autoCompleteValue, name } = this.state;
     const { start, end } = this.props.eventTime;
     let collection = {
       artist_id: autoCompleteValue.id,
       name,
       start,
       end,
-      link,
     };
     if (autoCompleteValue === "") {
       alert("choose a value from the dropdown");
@@ -72,12 +70,6 @@ export default class CollectionForm extends React.Component {
             onChange={this.handleChange}
             name="name"
             label="Name"
-            required
-          />
-          <TextField
-            onChange={this.handleChange}
-            name="link"
-            label="Link"
             required
           />
           <Autocomplete
