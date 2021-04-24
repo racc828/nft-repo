@@ -81,24 +81,28 @@ export default class CollectionForm extends React.Component {
       <div>
         <form id="add-collection" onSubmit={this.handleSubmit}>
           <h1>Add Collection</h1>
-          <TextField
-            onChange={this.handleChange}
-            name="name"
-            label="Name"
-            required
-          />
-          <Autocomplete
-            id="combo-box-demo"
-            value={autoCompleteValue}
-            options={artistsName}
-            onChange={this.setValue}
-            getOptionLabel={(option) => option.title}
-            style={{ width: 300 }}
-            inputValue={autoCompleteInputValue}
-            onInputChange={this.setInputValue}
-            renderInput={this.renderInput}
-          />
-          <Button type="submit" variant="contained" color="secondary">
+          <div className="text-field-container">
+            <TextField
+              onChange={this.handleChange}
+              name="name"
+              label="Name"
+              required
+            />
+          </div>
+          <div className="text-field-container">
+            <Autocomplete
+              id="combo-box-demo"
+              value={autoCompleteValue}
+              options={artistsName}
+              onChange={this.setValue}
+              getOptionLabel={(option) => option.title}
+              style={{ width: 300 }}
+              inputValue={autoCompleteInputValue}
+              onInputChange={this.setInputValue}
+              renderInput={this.renderInput}
+            />
+          </div>
+          <Button type="submit" className="button-primary">
             Add
           </Button>
           {selectedArtists.map((artist) => {

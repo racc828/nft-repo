@@ -2,9 +2,14 @@ import React from "react";
 
 const Nav = ({ firstname, lastname }) => {
   return (
-    <nav>
+    <nav className="nav">
       <div className="nav-wrapper">
-        {firstname} {lastname}
+        <div className="nav-column">Logo</div>
+        <div className="nav-column">
+          <span className="nav-username bold">
+            {firstname} {lastname}
+          </span>
+        </div>
       </div>
     </nav>
   );

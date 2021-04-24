@@ -74,7 +74,7 @@ export default class DroptypeForm extends React.Component {
             name="link"
             required
           />
-          <Button type="submit" variant="contained" color="secondary">
+          <Button type="submit" className="button-primary">
             Add
           </Button>
         </form>

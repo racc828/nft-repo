@@ -93,7 +93,7 @@ export default class ArtistForm extends React.Component {
             name="insta_link"
             label="Instagram Link"
           />
-          <Button type="submit" variant="contained" color="secondary">
+          <Button type="submit" className="button-primary">
             Add
           </Button>
         </form>

@@ -32,11 +32,7 @@ export default class CollectionData extends React.Component {
         </p>
         <h3>
           Droptypes
-          <IconButton
-            color="secondary"
-            aria-label="add droptype"
-            onClick={this.toggleForm}
-          >
+          <IconButton aria-label="add droptype" onClick={this.toggleForm}>
             <PlusIcon />
           </IconButton>
         </h3>

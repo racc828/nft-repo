@@ -2,12 +2,14 @@ import React from "react";
 import CalendarContainer from "./CalendarContainer";
 import ArtistForm from "./Artist/ArtistForm";
 import ArtistsAdapter from "../adapters/ArtistsAdapter";
+import PlusIcon from "@material-ui/icons/AddCircle";
+import IconButton from "@material-ui/core/IconButton";
 
 export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      displayAddArtistForm: true,
+      showForm: false,
       artists: [],
     };
   }
@@ -29,12 +31,21 @@ export default class Home extends React.Component {
     });
   };
 
+  toggleForm = () => {
+    this.setState({
+      showForm: !this.state.showForm,
+    });
+  };
+
   render() {
     const { currentUser } = this.props;
-    const { displayAddArtistForm, artists } = this.state;
+    const { showForm, artists } = this.state;
     return (
-      <div>
-        {displayAddArtistForm && (
+      <div className="container">
+        <IconButton aria-label="add droptype" onClick={this.toggleForm}>
+          <PlusIcon />
+        </IconButton>
+        {showForm && (
           <ArtistForm
             createArtist={this.createArtist}
             currentUser={currentUser}
