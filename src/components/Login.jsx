@@ -27,7 +27,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-container">
+      <div className="login-container text-center">
         <form id="user-login" onSubmit={this.handleSubmit}>
           <h1>Login</h1>
 
@@ -51,7 +51,7 @@ export default class Login extends React.Component {
               required
             />
           </div>
-          <Button type="submit" className="butto -primary">
+          <Button type="submit" className="button-primary">
             Login
           </Button>
         </form>
