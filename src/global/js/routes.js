@@ -1,4 +1,5 @@
-const rootUrl = "http://localhost:3000/api/v1";
+// const rootUrl = "http://localhost:3000/api/v1";
+const rootUrl = "https://murmuring-cove-43821.herokuapp.com/api/v1";
 
 const methods = {
   GET: "GET",
