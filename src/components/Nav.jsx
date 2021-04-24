@@ -6,7 +6,7 @@ const Nav = ({ firstname, lastname }) => {
       <div className="nav-wrapper">
         <div className="nav-column">
           <a href="/" className="nav-brand-logo bold">
-            Logo
+            Niftylitics
           </a>
         </div>
         <div className="nav-column">
