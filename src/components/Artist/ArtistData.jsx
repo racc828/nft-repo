@@ -1,5 +1,4 @@
 import React from "react";
-import "../../css/modal.css";
 // import { TwitterIcon, InstagramIcon } from "@material-ui/icons";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";

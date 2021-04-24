@@ -1,7 +1,6 @@
 import React from "react";
 import CalendarContainer from "./CalendarContainer";
 import ArtistForm from "./Artist/ArtistForm";
-import "../css/modal.css";
 import ArtistsAdapter from "../adapters/ArtistsAdapter";
 
 export default class Home extends React.Component {

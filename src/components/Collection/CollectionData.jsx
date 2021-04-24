@@ -1,5 +1,4 @@
 import React from "react";
-import "../../css/modal.css";
 import ArtistData from "../Artist/ArtistData";
 import DroptypeForm from "../Droptype/DroptypeForm";
 import PlusIcon from "@material-ui/icons/AddCircle";
