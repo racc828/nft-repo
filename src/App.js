@@ -45,7 +45,7 @@ class App extends Component {
     const { currentUser } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         <Nav {...currentUser} />
         {!this.state.currentUser.error ? (
           <Route exact path="/" render={this.renderHome} />

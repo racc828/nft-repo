@@ -3,11 +3,13 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import CollectionsAdapter from "../adapters/CollectionsAdapter";
-import CollectionForm from "./CollectionForm";
-import CollectionData from "./CollectionData";
+import CollectionForm from "./Collection/CollectionForm";
+import CollectionData from "./Collection/CollectionData";
+import cloneDeep from "lodash/cloneDeep";
 import { Modal } from "@material-ui/core";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+
 const localizer = momentLocalizer(moment);
 
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -26,10 +28,13 @@ export default class CalendarContainer extends React.Component {
   componentDidMount() {
     CollectionsAdapter.getCollections().then((data) => {
       const newData = data.map((collection) => {
-        let newcoll = collection;
+        let newcoll = cloneDeep(collection);
         newcoll.title = collection.name;
+        newcoll.end = new Date(newcoll.end);
+        newcoll.start = new Date(newcoll.start);
         return newcoll;
       });
+
       this.setState({
         events: newData,
       });
@@ -64,6 +69,8 @@ export default class CalendarContainer extends React.Component {
     const { events } = this.state;
     CollectionsAdapter.createCollection(collection).then((data) => {
       data.title = data.name;
+      data.start = new Date(data.start);
+      data.end = new Date(data.end);
       this.setState({
         events: [...events, data],
         modalOpen: false,
@@ -81,8 +88,11 @@ export default class CalendarContainer extends React.Component {
       });
 
     var style = {
-      backgroundColor: isDrawing ? "#FFC0CB" : "#2F329F",
-      color: isDrawing ? "black" : "white",
+      backgroundColor: isDrawing ? "rgb(20, 182, 200)" : "#2F329F",
+      color: "white",
+      borderColor: isDrawing ? "rgb(97, 225, 239)" : "white",
+      borderRadius: "0",
+      padding: "5px",
     };
     return {
       style: style,

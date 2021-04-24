@@ -6,7 +6,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import DroptypesAdapter from "../adapters/DroptypesAdapter";
+import DroptypesAdapter from "../../adapters/DroptypesAdapter";
 
 export default class DroptypeForm extends React.Component {
   constructor() {
@@ -60,6 +60,7 @@ export default class DroptypeForm extends React.Component {
                 control={<Radio />}
                 label="Auction"
               />
+              <FormControlLabel value="pack" control={<Radio />} label="Pack" />
               <FormControlLabel
                 value="other"
                 control={<Radio />}

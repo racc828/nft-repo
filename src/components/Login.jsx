@@ -35,6 +35,7 @@ export default class Login extends React.Component {
             onChange={this.handleChange}
             name="username"
             label="username"
+            variant="filled"
             required
           />
 
@@ -43,6 +44,7 @@ export default class Login extends React.Component {
             label="password"
             type="password"
             name="password"
+            variant="filled"
             required
           />
           <Button type="submit" variant="contained" color="secondary">

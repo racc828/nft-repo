@@ -1,7 +1,7 @@
 import React from "react";
-import "../css/modal.css";
-import ArtistData from "./ArtistData";
-import DroptypeForm from "./DroptypeForm";
+import "../../css/modal.css";
+import ArtistData from "../Artist/ArtistData";
+import DroptypeForm from "../Droptype/DroptypeForm";
 import PlusIcon from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -22,9 +22,6 @@ export default class CollectionData extends React.Component {
   render() {
     const { showForm } = this.state;
     const { id, name, artists, droptypes } = this.props;
-
-    // prettier-ignore
-    console.log(`%cdroptypes`, 'background: #FF1493; color: #fff; padding: 3px;', droptypes); // eslint-disable-line
 
     return (
       <div className="collection-data">
