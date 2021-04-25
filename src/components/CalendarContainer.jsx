@@ -7,8 +7,8 @@ import CollectionForm from "./Collection/CollectionForm";
 import CollectionData from "./Collection/CollectionData";
 import cloneDeep from "lodash/cloneDeep";
 import { Modal } from "@material-ui/core";
-// import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
